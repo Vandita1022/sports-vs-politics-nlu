@@ -74,139 +74,11 @@ Notably, feature scaling proved critical for instance-based learners — the **K
 
 ---
 
-## ⚙️ How to Run: Execution Workflow
+## ⚙️ Installation & Execution Workflow
 
-To fully replicate the results, execute the scripts in the following sequential order:
-
----
-
-### 1️⃣ Data Acquisition
-
-**Run:**
-```bash
-python scrape_bbc.py
-```
-
-**Action:**  
-Scrapes real-time articles from BBC and The Guardian.
-
-**Output:**  
-Saves raw `.txt` files into the `sports_politics_data/` directory.
+Follow the steps below to fully reproduce the results.
 
 ---
-
-**Run:**
-```bash
-python kaggle_data.py
-```
-
-**Action:**  
-Processes the `News_Category_Dataset_v3.json` file.
-
-**Output:**  
-Converts JSON entries to `.txt` files and appends them to the scraped corpus.
-
----
-
-### 2️⃣ Dataset Synthesis
-
-**Run:**
-```bash
-python 20newsgroup_data.py
-```
-
-**Action:**  
-Fetches the 20 Newsgroups benchmark and merges it with the existing `sports_politics_data/`.
-
-**Output:**  
-Generates `final_master_dataset.csv`.
-
----
-
-**Run:**
-```bash
-python final_dataset.py
-```
-
-**Action:**  
-Standardizes all data sources and applies MD5-based deduplication to prevent data leakage.
-
-**Output:**  
-Creates the optimized `final_master_dataset_v2.csv`.
-
----
-
-### 3️⃣ Preprocessing & Exploratory Data Analysis (EDA)
-
-**Run:**
-```bash
-python preprocessing.py
-```
-
-**Action:**  
-Applies the NLTK cleaning pipeline:
-- Lowercasing  
-- Stop-word removal  
-- WordNet lemmatization  
-
-**Output:**  
-Generates:
-- `dataset_preprocessed.csv`  
-- `preprocessing_comparison.png`
-
----
-
-**Run:**
-```bash
-python data_description.py
-```
-
-**Action:**  
-Performs quantitative statistical analysis of the dataset.
-
-**Output:**  
-Generates:
-- `class_dist.png`
-- `word_dist.png`
-- `source_comp.png`
-
----
-
-### 4️⃣ Model Training & Evaluation
-
-**Run:**
-```bash
-python model_training.py
-```
-
-**Action:**  
-Trains 6 machine learning models across 3 feature representations using:
-- Saga solver  
-- L2 regularization  
-
-**Output:**  
-- Saves 18 trained `.pkl` models inside `trained_models/`  
-- Generates `full_evaluation_metrics.csv`
-
----
-
-**Run:**
-```bash
-python model_comparison_plots.py
-```
-
-**Action:**  
-Visualizes the full 6 × 3 experimental matrix.
-
-**Output:**  
-Generates:
-- `accuracy_heatmap_final.png`
-- `advanced_curves.png`
-- Confusion matrices
-
----
-
-## 🛠️ Installation & Usage
 
 ### 1️⃣ Clone the Repository
 
@@ -215,17 +87,59 @@ git clone https://github.com/your-username/news-classification-nlu.git
 cd news-classification-nlu
 ```
 
+---
+
 ### 2️⃣ Install Dependencies
 
 ```bash
 pip install pandas numpy scikit-learn nltk beautifulsoup4 requests
 ```
 
-### 3️⃣ Run the Pipeline
+---
 
-- **Step 1:** Scrape and prepare data using `scrape_bbc.py` and `kaggle_data.py`.
-- **Step 2:** Generate the final corpus with `20newsgroup_data.py` and `final_dataset.py`.
-- **Step 3:** Train models and evaluate using `model_training.py` and `model_comparison_plots.py`.
+### 3️⃣ External Data Requirements
+
+To execute the full pipeline, download the following datasets and place them in the **root directory** of the project:
+
+- **HuffPost News Category Dataset**  
+  https://www.kaggle.com/datasets/rmisra/news-category-dataset
+
+- **Article Dataset-2**  
+  https://www.kaggle.com/datasets/amunsentom/article-dataset-2
+
+> ⚠️ Ensure the downloaded JSON/CSV files are placed in the project root before running the scripts.
+
+---
+
+## 🔄 4️⃣ Sequential Execution Order
+
+Run the following scripts **in order**:
+
+| Step | Command | Description | Expected Output |
+|------|----------|------------|----------------|
+| 1 | `python scrape_bbc.py` | Scrapes BBC/Guardian articles | Raw `.txt` files in `sports_politics_data/` |
+| 2 | `python kaggle_data.py` | Processes downloaded Kaggle JSON data | Converted `.txt` files in `sports_politics_data/` |
+| 3 | `python 20newsgroup_data.py` | Fetches 20 Newsgroups benchmark | `final_master_dataset.csv` |
+| 4 | `python final_dataset.py` | Standardizes sources & removes duplicates (MD5) | `final_master_dataset_v2.csv` |
+| 5 | `python preprocessing.py` | Cleans text (lemmatization, stop-word removal) | `dataset_preprocessed.csv` |
+| 6 | `python data_description.py` | Performs statistical EDA | `class_dist.png`, `word_dist.png`, `source_comp.png` |
+| 7 | `python model_training.py` | Trains 6 ML models × 3 feature sets | 18 `.pkl` models + `evaluation_metrics.csv` |
+| 8 | `python model_comparison_plots.py` | Generates performance visualizations | `accuracy_heatmap_final.png`, ROC/PR curves |
+
+---
+
+### 📌 Complete Pipeline Summary
+
+1. Scrape + integrate datasets  
+2. Merge & deduplicate corpus  
+3. Apply NLTK preprocessing  
+4. Perform EDA  
+5. Train 6 models × 3 feature sets  
+6. Generate evaluation metrics & visualizations  
+
+---
+
+> ✅ After completing all steps, the repository will contain trained models, evaluation metrics, and visualization outputs identical to those reported in the accompanying report.
 
 ---
 
