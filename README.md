@@ -72,6 +72,140 @@ Notably, feature scaling proved critical for instance-based learners — the **K
 
 ---
 
+---
+
+## ⚙️ How to Run: Execution Workflow
+
+To fully replicate the results, execute the scripts in the following sequential order:
+
+---
+
+### 1️⃣ Data Acquisition
+
+**Run:**
+```bash
+python scrape_bbc.py
+```
+
+**Action:**  
+Scrapes real-time articles from BBC and The Guardian.
+
+**Output:**  
+Saves raw `.txt` files into the `sports_politics_data/` directory.
+
+---
+
+**Run:**
+```bash
+python kaggle_data.py
+```
+
+**Action:**  
+Processes the `News_Category_Dataset_v3.json` file.
+
+**Output:**  
+Converts JSON entries to `.txt` files and appends them to the scraped corpus.
+
+---
+
+### 2️⃣ Dataset Synthesis
+
+**Run:**
+```bash
+python 20newsgroup_data.py
+```
+
+**Action:**  
+Fetches the 20 Newsgroups benchmark and merges it with the existing `sports_politics_data/`.
+
+**Output:**  
+Generates `final_master_dataset.csv`.
+
+---
+
+**Run:**
+```bash
+python final_dataset.py
+```
+
+**Action:**  
+Standardizes all data sources and applies MD5-based deduplication to prevent data leakage.
+
+**Output:**  
+Creates the optimized `final_master_dataset_v2.csv`.
+
+---
+
+### 3️⃣ Preprocessing & Exploratory Data Analysis (EDA)
+
+**Run:**
+```bash
+python preprocessing.py
+```
+
+**Action:**  
+Applies the NLTK cleaning pipeline:
+- Lowercasing  
+- Stop-word removal  
+- WordNet lemmatization  
+
+**Output:**  
+Generates:
+- `dataset_preprocessed.csv`  
+- `preprocessing_comparison.png`
+
+---
+
+**Run:**
+```bash
+python data_description.py
+```
+
+**Action:**  
+Performs quantitative statistical analysis of the dataset.
+
+**Output:**  
+Generates:
+- `class_dist.png`
+- `word_dist.png`
+- `source_comp.png`
+
+---
+
+### 4️⃣ Model Training & Evaluation
+
+**Run:**
+```bash
+python model_training.py
+```
+
+**Action:**  
+Trains 6 machine learning models across 3 feature representations using:
+- Saga solver  
+- L2 regularization  
+
+**Output:**  
+- Saves 18 trained `.pkl` models inside `trained_models/`  
+- Generates `full_evaluation_metrics.csv`
+
+---
+
+**Run:**
+```bash
+python model_comparison_plots.py
+```
+
+**Action:**  
+Visualizes the full 6 × 3 experimental matrix.
+
+**Output:**  
+Generates:
+- `accuracy_heatmap_final.png`
+- `advanced_curves.png`
+- Confusion matrices
+
+---
+
 ## 🛠️ Installation & Usage
 
 ### 1️⃣ Clone the Repository
