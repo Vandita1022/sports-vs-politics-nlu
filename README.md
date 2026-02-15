@@ -27,6 +27,30 @@ This project utilizes a **Master Dataset (N = 7,658)** synthesized from four pri
 - **Extensive Model Benchmarking:** Evaluated 18 distinct experimental configurations (6 models × 3 representations).
 
 ---
+## 📊 Performance Analysis
+
+![Accuracy Heatmap](accuracy_heatmap_final.png)
+
+The system identifies **Logistic Regression with TF-IDF** as the superior architecture.
+
+Notably, feature scaling proved critical for instance-based learners — the **KNN model saw a 20% accuracy surge** when transitioning from BoW to TF-IDF.
+
+### 📈 Top Model Metrics (TF-IDF Representation)
+
+| Model | Accuracy | Precision | Recall | F1-Score |
+|-------|----------|-----------|--------|----------|
+| **Logistic Regression** | **0.9608** | **0.9615** | **0.9608** | **0.9608** |
+| Naive Bayes | 0.9589 | 0.9595 | 0.9589 | 0.9588 |
+| SVM (Linear) | 0.9569 | 0.9570 | 0.9569 | 0.9569 |
+
+---
+
+## 📊 Visual Validation
+
+- **ROC-AUC Curves:** Achieved scores **> 0.99** for top-tier models, indicating near-perfect topical separability.
+- **Accuracy Heatmap:** Demonstrates the critical dependency of KNN on TF-IDF weighting.
+- **Confusion Matrices:** Detailed error analysis highlighting baseline KNN-BoW misclassification patterns.
+---
 
 ## 📂 Repository Structure
 
@@ -64,31 +88,6 @@ Below is the complete project hierarchy. Note that files marked as *(Generated)*
 └── News_Category_Dataset_v3.json     # Source data (Download required)
 ```
 
----
-
-## 📊 Performance Analysis
-
-![Accuracy Heatmap](accuracy_heatmap_final.png)
-
-The system identifies **Logistic Regression with TF-IDF** as the superior architecture.
-
-Notably, feature scaling proved critical for instance-based learners — the **KNN model saw a 20% accuracy surge** when transitioning from BoW to TF-IDF.
-
-### 📈 Top Model Metrics (TF-IDF Representation)
-
-| Model | Accuracy | Precision | Recall | F1-Score |
-|-------|----------|-----------|--------|----------|
-| **Logistic Regression** | **0.9608** | **0.9615** | **0.9608** | **0.9608** |
-| Naive Bayes | 0.9589 | 0.9595 | 0.9589 | 0.9588 |
-| SVM (Linear) | 0.9569 | 0.9570 | 0.9569 | 0.9569 |
-
----
-
-## 📊 Visual Validation
-
-- **ROC-AUC Curves:** Achieved scores **> 0.99** for top-tier models, indicating near-perfect topical separability.
-- **Accuracy Heatmap:** Demonstrates the critical dependency of KNN on TF-IDF weighting.
-- **Confusion Matrices:** Detailed error analysis highlighting baseline KNN-BoW misclassification patterns.
 ---
 
 ## ⚙️ Installation & Execution Workflow
