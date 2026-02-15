@@ -4,6 +4,8 @@ This repository contains the end-to-end implementation of a high-performance Nat
 
 By evaluating six machine learning architectures across multiple feature representations, this project identifies the optimal pipeline for topical separability in digital journalism.
 
+## Report Link - [Click here](https://drive.google.com/file/d/1U_7SSB12z3bxe4Px_T_aTSSVQcVn7Rnf/view?usp=sharing)
+
 ---
 
 ## 🚀 Peak Accuracy: **96.08%**
